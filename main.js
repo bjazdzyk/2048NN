@@ -148,15 +148,34 @@ class Game{
 		this.board.newBlock()
 
 		this.board.draw()
-
-	console.log('	')
-		this.board.move('down')
-
-		this.board.draw()
-		
-
 	}
 }
 
+class Player{
+	constructor(size){
+		this.size = 3
+	}
+	play(game, delay = false){
+		this.game = game
+		if(delay){
+			window.setInterval(()=>{
+				const move = this.moveRandom(game)
+				this.game.board.move(move)
+				const b = this.game.board.newBlock()
+
+				console.log(move)
+				this.game.board.draw()
+
+			}, delay)
+		}
+	}
+	moveRandom(game){
+		return ['up', 'left', 'down', 'right'][Math.floor(Math.random()*4)]
+	}
+
+}
 
 let g = new Game(3)
+
+let p = new Player(2)
+p.play(g, 500)
